@@ -1,10 +1,14 @@
-#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <thread>
+#include <chrono> //-- para controlar el retardo
+#include "CCirculo.h"
+#include "CmCirculos.h"
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    sf::RenderWindow window(sf::VideoMode(1080, 720), "SFML works!");
+    srand(time(nullptr));
+    CmCirculos vdeCirculos(&window, 500);
 
     while (window.isOpen())
     {
@@ -16,8 +20,10 @@ int main()
         }
 
         window.clear();
-        window.draw(shape);
+        vdeCirculos.mostrarCirculos();
         window.display();
+        std::this_thread::sleep_for(std::chrono::milliseconds(20));
+        vdeCirculos.moverCirculos();
     }
 
     return 0;
